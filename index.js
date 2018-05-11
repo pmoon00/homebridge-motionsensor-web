@@ -54,7 +54,7 @@ MotionSensorWeb.prototype = {
 	},
 	//WEBS
 	setupWebServer: function () {
-		this._webServer = http.createServer(this.requestHandler);
+		this._webServer = http.createServer(this.requestHandler.bind(this));
 		this._webServer.listen(this.httpPort, (err) => {
 			if (err) {
 				return this.log(`An error occurred when setting up the web server. Error: ${err}`);
@@ -65,7 +65,6 @@ MotionSensorWeb.prototype = {
 	},
 	requestHandler: function (request, response) {
 		this.log(request.url);
-		
 		this.updateState(true);
 		
 		if (this.timeoutID > -1) {
