@@ -34,13 +34,15 @@ MotionSensorWeb.prototype = {
 				.setCharacteristic(Characteristic.Model, this.model)
 				.setCharacteristic(Characteristic.SerialNumber, this.serial);
 
-		services.push(informationService);
+		services.push(this.informationService);
 
 		this.motionService = new Service.MotionSensor(this.name);
 		this.motionService
 			.getCharacteristic(Characteristic.MotionDetected)
 			.on("get", this.getState.bind(this));
-		
+
+		services.push(this.motionService);
+
 		this.setupWebServer();
 		return services;
 	},
