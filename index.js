@@ -60,7 +60,7 @@ MotionSensorWeb.prototype = {
 				return this.log(`An error occurred when setting up the web server. Error: ${err}`);
 			}
 		
-			this.log(`Web server is listening on ${port}`);
+			this.log(`Web server is listening on ${this.port}`);
 		});
 	},
 	requestHandler: function (request, response) {
