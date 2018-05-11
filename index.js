@@ -19,7 +19,6 @@ function MotionSensorWeb(log, config) {
 	this.stopDelayMs = config["stopDelayMs"] || 1500;
 	this.startFuseActive = false;
 	this.motionDetected = false;
-	//this.timeoutID = -1;
 	this.stopDelayTimeoutID = -1;
 }
 
@@ -64,19 +63,27 @@ MotionSensorWeb.prototype = {
 		}
 
 		if (motionDetected && !this.startFuseActive && this.stopDelayTimeoutID > -1) {
+			this.log("A motion start event fired while stop was queued, cleared stop queue.");
 			clearTimeout(this.stopDelayTimeoutID);
 			return;
 		} else if (motionDetected && this.startFuseActive) {
+			this.log("A motion start event fired but fuse is running, didn't send start motion event.");
 			return;
 		}
 
 		if (!motionDetected) {
+			this.log("A motion end event fired.  Stop event has now been queued.");
 			this.stopDelayTimeoutID = setTimeout(() => {
 				this.updateState(false);
+				this.log("A motion end event fired.  Event sent.");
 				this.stopDelayTimeoutID = -1;
 			}, this.stopDelayMs);
 			this.startFuseActive = true;
-			setTimeout(() => { this.startFuseActive = false; }, this.startAfterStopFuseMs);
+			this.log("Fuse started.");
+			setTimeout(() => {
+				this.startFuseActive = false;
+				this.log("Fuse cleared.");
+			}, this.startAfterStopFuseMs);
 		}
 
 		this.setState(motionDetected);
