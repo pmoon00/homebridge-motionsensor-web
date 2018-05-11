@@ -1,5 +1,5 @@
 "use strict";
-const Service, Characteristic;
+var Service, Characteristic;
 const http = require("http");
 
 module.exports = function (homebridge) {
