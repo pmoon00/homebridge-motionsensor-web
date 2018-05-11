@@ -1,0 +1,20 @@
+{
+  "name": "homebridge-motionsensor-web",
+  "version": "1.0.0",
+  "description": "Homebridge plugin for a web based motion sensor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Phillip Moon",
+  "license": "MIT",
+  "keywords": [
+	"homebridge-plugin",
+	"homebridge",
+	"homebridge-motionsensor"
+  ],
+  "engines": {
+    "homebridge": ">=0.4.0",
+    "node": ">=0.12.0"
+  }
+}
