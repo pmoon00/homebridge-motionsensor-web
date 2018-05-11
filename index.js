@@ -55,12 +55,12 @@ MotionSensorWeb.prototype = {
 	//WEBS
 	setupWebServer: function () {
 		this._webServer = http.createServer(this.requestHandler);
-		this._webServer.listen(this.port, (err) => {
+		this._webServer.listen(this.httpPort, (err) => {
 			if (err) {
 				return this.log(`An error occurred when setting up the web server. Error: ${err}`);
 			}
 		
-			this.log(`Web server is listening on ${this.port}`);
+			this.log(`Web server is listening on ${this.httpPort}`);
 		});
 	},
 	requestHandler: function (request, response) {
