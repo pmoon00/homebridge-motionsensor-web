@@ -15,9 +15,12 @@ function MotionSensorWeb(log, config) {
 	this.model = config["model"];
 	this.serial = config["serial"] || "Non-defined serial";
 	this.httpPort = config["httpPort"] || 8888;
-	this.timeoutDurationMs = config["timeoutDurationMs"] || 10000;
+	this.startAfterStopFuseMs = config["startAfterStopFuseMs"] || 750;
+	this.stopDelayMs = config["stopDelayMs"] || 1500;
+	this.startFuseActive = false;
 	this.motionDetected = false;
-	this.timeoutID = -1;
+	//this.timeoutID = -1;
+	this.stopDelayTimeoutID = -1;
 }
 
 MotionSensorWeb.prototype = {
@@ -46,7 +49,39 @@ MotionSensorWeb.prototype = {
 		this.setupWebServer();
 		return services;
 	},
+	/*
+	 * Scenarios:
+	 * Start and is currently stopped - trigger immediately
+	 * Start and stop is queued - cancel stop if fuse has passed.  This accounts for the lights turning off and triggering the motion.
+	 * Stop after delay - this is so the light can stay on for a while after the motion has finished
+	*/
 	updateState: function (motionDetected) {
+		motionDetected = !!motionDetected;
+
+		if (motionDetected == this.motionDetected) {
+			this.log("Update state fired but hasn't changed, so didn't update.");
+			return;
+		}
+
+		if (motionDetected && !this.startFuseActive && this.stopDelayTimeoutID > -1) {
+			clearTimeout(this.stopDelayTimeoutID);
+			return;
+		} else if (motionDetected && this.startFuseActive) {
+			return;
+		}
+
+		if (!motionDetected) {
+			this.stopDelayTimeoutID = setTimeout(() => {
+				this.updateState(false);
+				this.stopDelayTimeoutID = -1;
+			}, this.stopDelayMs);
+			this.startFuseActive = true;
+			setTimeout(() => { this.startFuseActive = false; }, this.startAfterStopFuseMs);
+		}
+
+		this.setState(motionDetected);
+	},
+	setState: function (motionDetected) {
 		this.motionDetected = !!motionDetected;
 		this.motionService.getCharacteristic(Characteristic.MotionDetected)
 			.updateValue(this.motionDetected, null, "updateState");
@@ -64,17 +99,19 @@ MotionSensorWeb.prototype = {
 		});
 	},
 	requestHandler: function (request, response) {
-		this.log(request.url);
-		this.updateState(true);
-		
-		if (this.timeoutID > -1) {
-			clearTimeout(this.timeoutID);
-		}
+		var url = request.url.toLowerCase(); //e.g. /start or /stop
 
-		this.timeoutID = setTimeout(() => {
-			this.timeoutID = -1;
-			this.updateState(false);
-		}, this.timeoutDurationMs);
+		this.log(`Handled request URL: ${url}`);
+
+		switch (url) {
+			case "/start":
+				this.updateState(true);
+				break;
+			case "/stop":
+				this.updateState(false);
+				break;
+		}
+		
 		response.end("Pong");
 	}
 };
