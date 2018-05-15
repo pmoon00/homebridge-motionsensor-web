@@ -1,0 +1,8 @@
+May 13 21:43:59 ubuntu-16 homebridge[100160]: [5/13/2018, 9:43:59 PM] [Front Motion Sensor] Handled request URL: /start
+May 13 21:43:59 ubuntu-16 homebridge[100160]: [5/13/2018, 9:43:59 PM] [Front Motion Sensor] Motion state updated to true
+May 13 21:44:06 ubuntu-16 homebridge[100160]: [5/13/2018, 9:44:06 PM] [Front Motion Sensor] Handled request URL: /stop
+May 13 21:44:06 ubuntu-16 homebridge[100160]: [5/13/2018, 9:44:06 PM] [Front Motion Sensor] A motion end event fired.  Stop event has now been queued.
+May 13 21:44:06 ubuntu-16 homebridge[100160]: [5/13/2018, 9:44:06 PM] [Front Motion Sensor] Fuse started.
+May 13 21:44:06 ubuntu-16 homebridge[100160]: [5/13/2018, 9:44:06 PM] [Front Motion Sensor] Motion state updated to false
+May 13 21:44:06 ubuntu-16 homebridge[100160]: [5/13/2018, 9:44:06 PM] [Front Motion Sensor] Update state fired but hasn't changed, so didn't update.
+May 13 21:44:06 ubuntu-16 homebridge[100160]: [5/13/2018, 9:44:06 PM] [Front Motion Sensor] A motion end event fired.  Event sent.
