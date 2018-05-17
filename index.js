@@ -1,6 +1,7 @@
 "use strict";
 var Service, Characteristic;
 const http = require("http");
+const url = require("url");
 
 module.exports = function (homebridge) {
 	Service = homebridge.hap.Service;
@@ -106,11 +107,34 @@ MotionSensorWeb.prototype = {
 		});
 	},
 	requestHandler: function (request, response) {
-		var url = request.url.toLowerCase(); //e.g. /start or /stop
+		var rawURL = request.url.toLowerCase(); //e.g. /start?camera=cameraName or /stop?camera=cameraName
+		var searchDictionary = (function (rawURL) {
+			var dictionary = {};
 
-		this.log(`Handled request URL: ${url}`);
+			if (!rawURL || rawURL.indexOf("?") == -1) {
+				return dictionary;
+			}
 
-		switch (url) {
+			var search = rawURL.split("?")[1];
+			var searchData = search.split("&");
+
+			for (var i = 0, l = searchData.length; i < l; i++) {
+				var keyValuePair = searchData[i].split("=");
+				var key = decodeURIComponent(keyValuePair[0]);
+				var value = decodeURIComponent(keyValuePair.length > 1 ? keyValuePair[1] : "");
+
+				dictionary[key.toLowerCase()] = value;
+			}
+
+			return dictionary;
+		})(rawURL);
+		var pathname = rawURL.split("?")[0].toLowerCase();
+
+		this.log(`Handled request URL: ${rawURL}`);
+		this.log(`Handled request pathname: ${pathname}`);
+		this.log(`Handled request search data: ${JSON.stringify(searchDictionary)}`);
+
+		switch (pathname) {
 			case "/start":
 				this.updateState(true);
 				break;
