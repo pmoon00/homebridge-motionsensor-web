@@ -28,7 +28,7 @@ MotionSensorWebPlatform.prototype = {
 
 		for (var i = 0, l = sensors.length; i < l; i++) {
 			var sensor = sensors[i];
-			var sensorName = sensor.name;
+			var sensorName = sensor.sensorName;
 
 			if (!sensorName) {
 				this.log("Could not find name in the following sensor config, so did not add.");
