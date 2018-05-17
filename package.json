@@ -11,7 +11,12 @@
   "keywords": [
     "homebridge-plugin",
     "homebridge",
-    "homebridge-motionsensor"
+	"homebridge-motionsensor",
+	"homebridge-unifi-motion-sensor",
+	"unifi",
+	"unifi video",
+	"unifi video motion sensor",
+	"motion sensor"
   ],
   "engines": {
     "homebridge": ">=0.4.0",
