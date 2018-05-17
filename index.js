@@ -99,17 +99,17 @@ MotionSensorWebPlatform.prototype = {
 		this.log(`Handled request pathname: ${pathname}.`);
 		this.log(`Handled request search data: ${JSON.stringify(searchDictionary)}.`);
 
-		if (searchDictionary && !searchDictionary.sensorName) {
+		if (searchDictionary && !searchDictionary.sensorname) {
 			this.log("No sensorName parameter in URL, cannot process.");
 			return;
 		}
 
 		switch (pathname) {
 			case "/start":
-				this.updateSensorState(true, searchDictionary.sensorName);
+				this.updateSensorState(true, searchDictionary.sensorname);
 				break;
 			case "/stop":
-				this.updateSensorState(false, searchDictionary.sensorName);
+				this.updateSensorState(false, searchDictionary.sensorname);
 				break;
 		}
 		

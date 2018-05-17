@@ -6,6 +6,7 @@
 		"sensors": [
 			{
 				"name": "Front Motion Sensor",
+				"sensorName": "Front - UVC G3",
 				"manufacturer": "UniFi Video",
 				"model": "G3 Driven",
 				"serial": "R2-D2",
@@ -14,6 +15,7 @@
 			},
 			{
 				"name": "Backyard Motion Sensor",
+				"sensorName": "Backyard - UVC G3",
 				"manufacturer": "UniFi Video",
 				"model": "G3 Driven",
 				"serial": "R2-D2",
