@@ -1,6 +1,6 @@
 {
   "name": "homebridge-motionsensor-web",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Homebridge plugin for a web based motion sensor.",
   "main": "index.js",
   "scripts": {
