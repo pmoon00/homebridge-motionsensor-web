@@ -39,6 +39,7 @@ MotionSensorWebPlatform.prototype = {
 			sensorName = sensorName.toLowerCase();
 			this.sensorDictionary[sensorName] = new MotionSensorWeb(this.log, sensor);
 			this.accessories.push(this.sensorDictionary[sensorName]);
+			this.log(`Added sensor with name ${sensorName}.`);
 		}
 		
 		callback(this.accessories);
