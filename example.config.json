@@ -1,0 +1,25 @@
+//PLATFORMS MAY ALREADY EXIST IN YOUR CONFIG
+"platforms": [
+	{
+		"platform": "motionsensor-web-platform",
+		"httpPort": 8888,
+		"sensors": [
+			{
+				"name": "Front Motion Sensor",
+				"manufacturer": "UniFi Video",
+				"model": "G3 Driven",
+				"serial": "R2-D2",
+				"stopDelayMs": 1,
+				"startAfterStopFuseMs": 310000
+			},
+			{
+				"name": "Backyard Motion Sensor",
+				"manufacturer": "UniFi Video",
+				"model": "G3 Driven",
+				"serial": "R2-D2",
+				"stopDelayMs": 1,
+				"startAfterStopFuseMs": 1
+			}
+		]
+	}
+]

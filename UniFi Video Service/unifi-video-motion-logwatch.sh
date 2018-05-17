@@ -15,12 +15,12 @@ while read line ; do
 	if [ ! -z "$cameraName" ] && [ ! -z "$isStart" ]
 	then
 			echo "$(date): Camera: ""$cameraName"" Action: Start" >>~/unifi-video-motion-logwatch.log
-			curl -Gv "http://10.1.1.221:8888/start" --data-urlencode "camera=${cameraName}"
+			curl -Gv "http://10.1.1.221:8888/start" --data-urlencode "sensorName=${cameraName}"
 	fi
 
 	if [ ! -z "$cameraName" ] && [ ! -z "$isStop" ]
 	then
 			echo "$(date): Camera: ""$cameraName"" Action: Stop" >>~/unifi-video-motion-logwatch.log
-			curl -Gv "http://10.1.1.221:8888/stop" --data-urlencode "camera=${cameraName}"
+			curl -Gv "http://10.1.1.221:8888/stop" --data-urlencode "sensorName=${cameraName}"
 	fi
 done
