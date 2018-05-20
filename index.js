@@ -58,7 +58,7 @@ MotionSensorWebPlatform.prototype = {
 			return;
 		}
 
-		sensor.setState(isStart);
+		sensor.updateState(isStart);
 		this.log(`Updated sensor ${sensorName} as ${isStart}.`);
 	},
 	//WEBS
