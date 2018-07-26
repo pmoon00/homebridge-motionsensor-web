@@ -184,8 +184,8 @@ MotionSensorWeb.prototype = {
 		if (!motionDetected) {
 			this.log("A motion end event fired.  Stop event has now been queued.");
 			this.stopDelayTimeoutID = setTimeout(() => {
-				this.updateState(false);
-				this.log("A motion end event fired.  Event sent.");
+				this.setState(false);
+				this.log("A motion end event set.  Event sent.");
 				this.stopDelayTimeoutID = -1;
 			}, this.stopDelayMs);
 			this.startFuseActive = true;
@@ -194,6 +194,7 @@ MotionSensorWeb.prototype = {
 				this.startFuseActive = false;
 				this.log("Fuse cleared.");
 			}, this.startAfterStopFuseMs);
+			return;
 		}
 
 		this.setState(motionDetected);
